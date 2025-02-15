@@ -11,7 +11,7 @@ function NavScrollExample() {
       <Container fluid>
         <Link href="/" className='flex items-center no-underline'>
                 <img src="/brand.png" alt="brand" className='h-[80px] ' />
-                <span className='h3  text-secondary mt-2'>LittleNinjas </span>
+                <span className='mt-2 h3 text-secondary'>LittleNinjas </span>
         </Link>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -20,7 +20,7 @@ function NavScrollExample() {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Link disabled href='/about' >About</Link>
+            <Link href='/about' >About</Link>
             
             <NavDropdown disabled title="Courses" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
