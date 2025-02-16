@@ -198,7 +198,7 @@ export const courseLevels = {
     3: [ // Web Development Levels
         {
             level_id: 1,
-            steps: 2,
+            steps: 1,
             title: "Web Development Beginner",
             ages: "Age 7-10",
             subtitle: "Introduction to Block-based Programming",
