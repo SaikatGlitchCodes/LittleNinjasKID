@@ -1,5 +1,6 @@
 "use client"
 import { useState } from "react"
+import Image from 'next/image'
 import { Button } from "./ui/button"
 import OffcanvasDrawer from "./OffcanvasDrawer"
 import level1 from '@/public/courseimage/level1.png'
@@ -9,6 +10,7 @@ import level4 from '@/public/courseimage/level4.webp';
 import level1weapon from '@/public/courseimage/level1weapon.png';
 import level2weapon from '@/public/courseimage/level2weapon.png';
 import level3weapon from '@/public/courseimage/level3weapon.webp';
+import level4weapon from '@/public/courseimage/level4weapon.png';
 
 const levelImages = {
     1: level1,
@@ -17,13 +19,20 @@ const levelImages = {
     4: level4,
 };
 
+const weaponImages = {
+        1: level1weapon,
+        2: level2weapon,
+        3: level3weapon,
+        4: level4weapon,
+};
+
 export default function CourseTab({ data = {} }) {
         console.log('Course', data);
         const color = data.color.toString();
         const [show, setShow] = useState(false);
-        const characterImage = levelImages[data.level_id] || level1; // fallback to level1
-
-        
+        const characterImage = levelImages[data.level_id] || level1;
+        const weaponImage = weaponImages[data.level_id] || level1weapon;
+        const colorText = data.level_id > 2 ? 'black': 'white';
         
         return (
 
@@ -33,25 +42,22 @@ export default function CourseTab({ data = {} }) {
                         <div style={{
                                 backgroundColor: color,
                         }} className={`flex justify-evenly items-center w-full h-28 md:mt-4 mt-2 rounded-lg `}>
-
-                                <img src={characterImage.src} alt="" className="w-[30%] scale-[1.6]" />
+                                <Image src={characterImage} alt="" width={100} height={100} className="w-[30%] scale-[1.6]" />
 
                                 <div className="flex flex-col justify-center w-auto h-full text-center ">
-                                        <h1 className="text-base text-black/75">Become <br /> {data.title} </h1>
+                                        <h1 className={`text-base text-black/75 text-[${colorText}]`}>Become <br /> {data.title} </h1>
                                         <p>{data.ages}</p>
                                 </div>
                         </div>
-                        <h1 className="text-xl font-bold text-center">{data.subtitle}</h1>
-                        <div className="h-10 rounded-lg bg-[#FFE7A9] flex justify-evenly items-center text-xl mx-2">
-                                <span>{data.sessions_end - data.sessions_start} classes</span>
-                                <span><i className="text-2xl fi fi-sr-tally-1 text-slate-600"></i></span>
-                                <span>{data.prices}$ per class</span>
+                        
+                        <div className="p-1 rounded-lg bg-[#FFE7A9] flex justify-evenly items-center text-xl mx-2">
+                        <h1 className="text-xl font-normal text-center">{data.subtitle}</h1>   
                         </div>
-                        <h3 className="text-lg text-center text-gray-600">Course overview 🚀</h3>
-                        <ul className="overflow-y-scroll list-disc bg-white rounded-md h-28">
+                       
+                        <h3 className="text-lg text-center text-gray-600">Course overview | <span className="text-center">{data.sessions_end - data.sessions_start} classes</span></h3>
+                        <ul className="py-2 overflow-y-scroll list-disc bg-white rounded-md h-28">
                                {
                                 data.sessionData?.map(v=>{
-                                        // console.log(v);
                                         return <li key={v.title}>{v.title}</li>
                                 })
                                }
@@ -63,7 +69,7 @@ export default function CourseTab({ data = {} }) {
                                 <Button size="sm" onClick={() => setShow(!show)} className='bg-[#FFDF8C] text-sm font-normal border-2  text-[#545454] hover:text-white hover:bg-[#FF847E]'>  Get Demo!</Button>
 
                         </div>
-                        <img src={data.weapon_logo} alt="" className="absolute right-0 h-20 -top-6" />
+                        <img src={weaponImage.src} alt="" className="absolute right-0 h-20 -top-6" />
                         <OffcanvasDrawer show={show} setShow={setShow} />
                 </div>
         )
